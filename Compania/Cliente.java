@@ -31,6 +31,9 @@ public abstract class Cliente implements Fechable{
     public Cliente (){
     }
 
+   
+    
+    
     public Cliente( Cliente otroCliente) {
         this.nombre = otroCliente.nombre;
         this.nif = otroCliente.nif;
@@ -87,6 +90,8 @@ public abstract class Cliente implements Fechable{
     public ArrayList<Factura> getConjuntoFacturas() {
         return conjuntoFacturas;
     }
+    
+ 
 
     public void setConjuntoFacturas(ArrayList<Factura> conjuntoFacturas) {
         this.conjuntoFacturas = conjuntoFacturas;

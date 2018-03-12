@@ -1,5 +1,6 @@
 package Compania;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class gestClient {
@@ -39,27 +40,40 @@ public class gestClient {
     }
 
     /**
-     * chanchTarifa -> Cambiar la tarifa de un cliente
+     * changeTarifa -> Cambiar la tarifa de un cliente
      */
 
 
-    public void chanchTarifa( Cliente cliente, Tarifa tarifa ){
+    public void changeTarifa( Cliente cliente, Tarifa tarifa ){
         cliente.setTarifa(tarifa);
     }
 
 
 
     /**
-     * searcClient -> Buscar Cliente por NIF
+     * searchClient -> Buscar Cliente por NIF
      */
 
-    public Cliente searcClient ( String nif ) {
+    public Cliente searchClient ( String nif ) {
 
         for (Cliente cli : conjClientes)
             if (cli.getNIF() == nif)
                 return cli;
         return null;
     }
+
+    public ArrayList<Factura> getFacturas(Cliente cliente){
+    	
+    	
+    	
+    	return cliente.getConjuntoFacturas();
+		  	
+    }
+    
+    
+    
+    
+    
 
 }
 
