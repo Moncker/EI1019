@@ -1,5 +1,6 @@
 package Compania;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class menu {
@@ -32,34 +33,60 @@ public class menu {
 		switch(cadena.toUpperCase()) {
 		
 		case ("A"): //Dar de ALTA
-			//creamos un nuevo cliente
-			Cliente usuario = new Cliente();
-			gestClient.addClient(usuario);
+			//creamos un nuevo cliente y preguntamos los datos
+			Cliente nuevoCliente = null;
+
+			System.out.println("Por favor, introduce el nombre");
+			sc = new Scanner(System.in);
+			String nombre = sc.nextLine();
+			nuevoCliente.setNombre(nombre);
+			System.out.println("Por favor, introduce el NIF");
+			sc = new Scanner(System.in);
+			String nif = sc.nextLine();
+			nuevoCliente.setNIF(nif);
+			System.out.println("Por favor, introduce la dirección");
+			sc = new Scanner(System.in);
+			String direccion = sc.nextLine();
+			System.out.println("Por favor, introduce el correo electrónico");
+			sc = new Scanner(System.in);
+			String correoElec = sc.nextLine();
+			nuevoCliente.setCorreoElec(correoElec);
+			System.out.println("Por favor, introduce la tarifa");
+			sc = new Scanner(System.in);
+			String laTarifa2 = sc.nextLine();
+			double laTarifa = Double.parseDouble(laTarifa2);
+			Tarifa tarifa = new Tarifa(laTarifa);
+			nuevoCliente.setTarifa(tarifa);
+			ArrayList<Factura> facturas;
+			
 			
 			
 		case ("B"):
 			System.out.println("por favor, introduzca el NIF del cliente");
-		Scanner cl = new Scanner(System.in);
-		String nif = cl.nextLine();
-		
-		Cliente persona = gestClient.searchClient(nif);
+			Scanner cl = new Scanner(System.in);
+			String DNI = cl.nextLine();
+			
+			Cliente persona = gestClient.searchClient(DNI);
 			gestClient.deleteClient( persona);
 			
 		case ("C"):
 			
 			System.out.println("por favor, introduzca el NIF del cliente");
-		Scanner cl = new Scanner(System.in);
-		String nif = cl.nextLine();
-		Cliente persona = gestClient.searchClient(nif);
-		
-		gestClient.changeTarifa(persona, Tarifa);
+			cl = new Scanner(System.in);
+			String n = cl.nextLine();
+			persona = gestClient.searchClient(n);
+			System.out.println("por favor, introduzca la tarifa del cliente");
+			cl = new Scanner(System.in);
+			Double tarifa2 = cl.nextDouble();
+			Tarifa tarifaFinal = new Tarifa(tarifa2);
+			gestClient.changeTarifa(persona, tarifaFinal);
 			
 		case ("D"):
 			System.out.println("por favor, introduzca el NIF del cliente");
-			Scanner cl = new Scanner(System.in);
-			String nif = cl.nextLine();
+			cl = new Scanner(System.in);
+			 nif = cl.nextLine();
 			
-			Cliente persona = gestClient.searchClient(nif);
+			 persona = gestClient.searchClient(nif);
 
 			
 		case ("E"):
@@ -78,10 +105,27 @@ public class menu {
 		switch(cadena.toUpperCase()) {
 		case ("A"):
 			
+			Llamada laLlamada = new Llamada();
+			gestLlamada.llamadas.add(laLlamada);
 			
 			
 			
-		case ("B"):			
+		case ("B"):	
+			
+			System.out.println("por favor, introduzca el NIF del cliente");
+		Scanner cl = new Scanner(System.in);
+		String DNI = cl.nextLine();
+		Cliente persona = gestClient.searchClient(DNI);
+		for(Factura factura : persona.getConjuntoFacturas()) {
+			gestLlamada dejavu = factura.llamadas;
+			ArrayList<Llamada> perone = dejavu.getLlamadas();
+			for (Llamada llamadillas : perone) {
+				System.out.println("Llamada a :" + llamadillas.numTelefono 
+						+ "Duración : " + llamadillas.duracion);
+			}
+		}
+		
+			
 		
 		default:
 			System.out.println("Error");
@@ -102,10 +146,33 @@ public class menu {
 			
 			
 			
-		case ("B"):			
+		case ("B"):	
+			System.out.println("Por Favor, dime el Codigo de la Factura");
+			Scanner codigo2 = new Scanner(System.in);
+			String codigo = sc.nextLine();
+			
+			
+			System.out.println("FACTURA :");
+			
 			
 		case ("C"):
 		
+			System.out.println("Por Favor, dime el NIF");
+			Scanner facturas = new Scanner(System.in);
+			String clientela = sc.nextLine();
+			
+			Cliente persona =  gestClient.searchClient(clientela);
+			
+			/* Debemos de emitir una factura, pero no sabemos muy bien como
+			 * por lo que la idea es imprimr por pantalla el total a pagar
+			 * así como el nombr
+			 */
+			System.out.println("Cliente :" + persona.getNombre());
+			double precio = Factura.calculaImporte(persona);
+			System.out.println("TOTAL A PAGAR =>" + precio);
+			
+			
+			
 		default:
 			System.out.println("Error");
 		}
